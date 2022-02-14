@@ -1,0 +1,13 @@
+name = "MPRebinSpectra"
+uuid = "594ef75b-651d-4ccd-8a30-194b17b3160e"
+authors = ["Maros Petro"]
+version = "0.1.0"
+
+[compat]
+julia = "1"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
