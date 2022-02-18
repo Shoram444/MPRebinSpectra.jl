@@ -17,4 +17,9 @@ export  rebin,
         rebin2D,
         normalize2D!
 
+include("Sampling.jl")
+export  sample_rejection,
+        sample_discrete_CDF,
+        sample_energies
+
 end
