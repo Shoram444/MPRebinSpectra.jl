@@ -16,8 +16,8 @@ end
 
 function get_total_volume(df_rebinned::DataFrame; thickness = unique(df_rebinned.E1)[2] - unique(df_rebinned.E1)[1])
     volume = 0.0
-    for e in unique(unique(df_rebinned.E1))
-        volume += get_row_volume(df_rebinned[df_rebinned.E1 .== e, :])
+    for e in unique(df_rebinned.E1)
+        volume += get_row_volume(df_rebinned[df_rebinned.E1 .== e, :], thickness)
     end
     return volume
 end
