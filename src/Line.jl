@@ -1,6 +1,6 @@
 function get_line_params(xi::Float64, df_normed::DataFrame)
-    row = df_normed[(df_normed.E0 .< xi) .& (df_normed.Ef .> xi),:]
-    return (row.a_normed[1], row.b_normed[1])
+    row = df_normed[(df_normed.minE .< xi) .& (df_normed.maxE .> xi),:]
+    return (row.a[1], row.b[1])
 end
 
 function get_line_params(x1::Float64, y1::Float64, x2::Float64, y2::Float64) 
