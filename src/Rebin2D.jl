@@ -70,7 +70,7 @@ function rebin(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::Fl
 end
 
 
-function normalize2D!(df_rebinned::DataFrame; thickness = 0.0001)
+function normalize2D!(df_rebinned::DataFrame; thickness = unique(df_rebinned.E1)[2] - unique(df_rebinned.E1)[1])
     volume_rebinned = get_total_volume(df_rebinned; thickness)
     
     df_normed = select(df_rebinned,
