@@ -1,5 +1,5 @@
-function get_line_params(xi::Float64, df_normed::DataFrame)
-    row = df_normed[(df_normed.minE .< xi) .& (df_normed.maxE .> xi),:]
+function get_line_params(xi::Float64, df::DataFrame)
+    row = df[(df.minE .< xi) .& (df.maxE .> xi),:]
     return (row.a[1], row.b[1])
 end
 

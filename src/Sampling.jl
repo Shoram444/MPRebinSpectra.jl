@@ -2,14 +2,14 @@ function sample_rejection(df::DataFrame;
     minX = minimum(df.minE), maxX = maximum(df.maxE), 
     minY = minimum(df.minG), maxY = maximum(df.maxG))
 
-    ξ   = rand(Uniform(minX,maxX),1)[1]
-    η   = rand(Uniform(minY,maxY),1)[1]
+    ξ   = rand(Uniform(minX,maxX))
+    η   = rand(Uniform(minY,maxY))
     a,b = get_line_params(ξ, df)
 
     while η > get_line_point(ξ, a, b)
-    ξ   = rand(Uniform(minX,maxX),1)[1]
-    η   = rand(Uniform(minY,maxY),1)[1]
-    a,b = get_line_params(ξ, df)
+        ξ   = rand(Uniform(minX,maxX))
+        η   = rand(Uniform(minY,maxY))
+        a,b = get_line_params(ξ, df)
     end
 
     return ξ
@@ -28,7 +28,7 @@ function sample_discrete_CDF(gamma::Float64, v::Vector{Float64}, cdf::Vector{Flo
 end    
 
 function sample_energies(df::DataFrame, volumesE1::Vector{Float64})
-    cdf = cumsum(v)
+    cdf = cumsum(volumesE1)
     
     gamma = rand(Uniform())
     E1 = unique(df.E1)[sample_discrete_CDF(gamma, volumesE1, cdf)]
