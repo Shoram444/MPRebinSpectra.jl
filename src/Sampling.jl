@@ -15,8 +15,7 @@ function sample_rejection(df::DataFrame;
     return ξ
 end
 
-function sample_discrete_CDF(gamma::Float64, v::Vector{Float64})
-    cdf = cumsum(v)
+function sample_discrete_CDF(gamma::Float64, v::Vector{Float64}, cdf::Vector{Float64})
     
     gamma < cdf[1] && return 1 # if gamma falls in the first bin move on right away
     
@@ -28,10 +27,11 @@ function sample_discrete_CDF(gamma::Float64, v::Vector{Float64})
     end
 end    
 
-function sample_energies(df::DataFrame, volumes::Vector{Float64})
+function sample_energies(df::DataFrame, volumesE1::Vector{Float64})
+    cdf = cumsum(v)
     
     gamma = rand(Uniform())
-    E1 = unique(df.E1)[sample_discrete_CDF(gamma, volumes)]
+    E1 = unique(df.E1)[sample_discrete_CDF(gamma, volumesE1, cdf)]
     E2 = sample_rejection(df[df.E1 .== E1, :])
     
     return E1, E2
