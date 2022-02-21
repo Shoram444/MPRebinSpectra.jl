@@ -20,7 +20,7 @@ function sample_discrete_CDF(gamma::Float64, v::Vector{Float64}, cdf::Vector{Flo
     gamma < cdf[1] && return 1 # if gamma falls in the first bin move on right away
     
     for i in 1:length(v)-1
-        if( cdf[i] = gamma <= cdf[i+1] )
+        if( cdf[i] <= gamma <= cdf[i+1] )
             return i+1
             
         end
