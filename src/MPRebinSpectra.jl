@@ -7,7 +7,8 @@ include("Line.jl")
 export  get_line_params, 
         get_line_point,
         get_integral_linear,
-        solvequadratic
+        solvequadratic,
+        plot_lines
 
 include("Volume.jl")
 export  get_area,
