@@ -1,6 +1,6 @@
 module MPRebinSpectra
 
-using DataFrames, DataFramesMeta, Random, Distributions
+using DataFrames, DataFramesMeta, Random, Distributions, StatsPlots, ColorSchemes
 # Write your package code here.
 
 include("Line.jl")
