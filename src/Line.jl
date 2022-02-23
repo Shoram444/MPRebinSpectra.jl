@@ -44,3 +44,9 @@ function get_integral_linear(minE::Real, maxE::Real, a::Real, b::Real)
     return 0.5*a * (maxE^2 - minE^2) + b * ( maxE - minE )
 end
 
+
+function solvequadratic(a, b, c)
+    d  = sqrt(b^2 - 4*a*c)
+    return (-b - d) / (2*a), (-b + d) / (2*a)
+end
+
