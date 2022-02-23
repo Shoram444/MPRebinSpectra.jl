@@ -50,37 +50,6 @@ function sample_energies_old(df::DataFrame, volumesE1::Vector{Float64})
 end
 
 
-"""
-#### function ```get_cdf(df::DataFrame, thickness::Real = 0.001)```
-<br>
-
-    Description of ```get_cdf```
-    ------------------------------
-Returns a tuple of energies (E, E2).
-
-"""
-function get_cdf(df::DataFrame, thickness::Real = 0.001)
-    n = nrow(df)
-    cdf = Vector{Float64}(undef, n)
-    cdf[1] = get_integral_linear(df[1,2], df[1,3], df[1,6], df[1,7])*thickness
-    
-    for i in 2:n
-        cdf[i] = cdf[i-1] + get_integral_linear(df[i,2], df[i,3], df[i,6], df[i,7])*thickness
-    end
-    return cdf
-end
-
-function get_cdf!(df::DataFrame, thickness::Real = 0.001)
-    n = nrow(df)
-    cdf = Vector{Float64}(undef, n)
-    cdf[1] = get_integral_linear(df[1,2], df[1,3], df[1,6], df[1,7])*thickness
-    
-    for i in 2:n
-        cdf[i] = cdf[i-1] + get_integral_linear(df[i,2], df[i,3], df[i,6], df[i,7])*thickness
-    end
-    
-    @transform! df :cdf = cdf
-end
 
 
 """

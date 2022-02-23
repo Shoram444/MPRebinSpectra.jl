@@ -70,7 +70,7 @@ function rebin(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::Fl
 end
 
 
-function normalize2D!(df_rebinned::DataFrame, thickness = unique(df_rebinned.E1)[2] - unique(df_rebinned.E1)[1])
+function normalize2D!(df_rebinned::DataFrame, thickness = 0.001)
     volume_rebinned = get_total_volume(df_rebinned, thickness)
     
     df_normed = select(df_rebinned,
@@ -82,5 +82,39 @@ function normalize2D!(df_rebinned::DataFrame, thickness = unique(df_rebinned.E1)
                     :a   => ByRow(a->a/volume_rebinned) => :a,
                     :b   => ByRow(b->b/volume_rebinned) => :b,
                     )
+
     return df_normed
+end
+
+
+"""
+#### function ```get_cdf(df::DataFrame, thickness::Real = 0.001)```
+<br>
+
+    Description of ```get_cdf```
+    ------------------------------
+Returns a tuple of energies (E, E2).
+
+"""
+function get_cdf(df::DataFrame, thickness::Real = 0.001)
+    n = nrow(df)
+    cdf = Vector{Float64}(undef, n)
+    cdf[1] = get_integral_linear(df[1,2], df[1,3], df[1,6], df[1,7])*thickness
+    
+    for i in 2:n
+        cdf[i] = cdf[i-1] + get_integral_linear(df[i,2], df[i,3], df[i,6], df[i,7])*thickness
+    end
+    return cdf
+end
+
+function get_cdf!(df::DataFrame, thickness::Real = 0.001)
+    n = nrow(df)
+    cdf = Vector{Float64}(undef, n)
+    cdf[1] = get_integral_linear(df[1,2], df[1,3], df[1,6], df[1,7])*thickness
+    
+    for i in 2:n
+        cdf[i] = cdf[i-1] + get_integral_linear(df[i,2], df[i,3], df[i,6], df[i,7])*thickness
+    end
+    
+    @transform! df :cdf = cdf
 end
