@@ -60,7 +60,7 @@ function plot_lines(step::Real, df::DataFrame, c::ColorPalette)
             xs = row.minE : 1e-3 : row.maxE
             line2(x) = get_line_point(x, row.a, row.b)
             plot!(xs, line2.(xs), lw = 2, alpha = 0.3, c = c[ceil(Int,cp)], legend = :false,
-                    xlabel = "E2 [MeV]", ylabel ="dGdE", 
+                    xlabel = "E2 [MeV]", ylabel ="dGdE", ylims = (minimum(df.minE), 1.1*maximum(df.maxE)),
                     title = "projection of the linear approximations, \n every $step")
         end
         if cp < 250.0
