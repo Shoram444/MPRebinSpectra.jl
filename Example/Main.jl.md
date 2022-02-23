@@ -119,38 +119,9 @@ df = normalize2D!(df)
 
 
 ```julia
-function plot_lines(step::Real, df::DataFrame, c::ColorPalette)
-    p::Plots.Plot = plot()
-    cp::Float64 = 1.0
-    for e1 in 1:step:length(unique(df.E1))
-        for row in eachrow(df[df.E1 .== unique(df.E1)[e1],:])
-            xs = row.minE : 1e-3 : row.maxE
-            line2(x) = get_line_point(x, row.a, row.b)
-            plot!(xs, line2.(xs), lw = 2, alpha = 0.3, c = c[ceil(Int,cp)], legend = :false,
-                    xlabel = "E2 [MeV]", ylabel ="dGdE", 
-                    title = "projection of the linear approximations, \n every $step")
-        end
-        if cp < 250.0
-            cp += step/10.0
-        end
-
-    end
-    return p
-end
-```
-
-
-
-
-    plot_lines (generic function with 4 methods)
-
-
-
-
-```julia
 c = palette(:thermal)
 
-p = plot_lines(40, df[1:500_000,:], c)
+p = plot_lines(50, df, c)
 p
 ```
 
@@ -158,7 +129,7 @@ p
 
 
     
-![svg](output_13_0.svg)
+![svg](output_12_0.svg)
     
 
 
