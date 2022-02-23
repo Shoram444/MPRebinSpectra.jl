@@ -114,6 +114,20 @@ df = normalize2D!(df)
 
 
 
+### Last step is to add a column of CDF values - probabilities. 
+
+
+```julia
+df = get_cdf!(df)
+```
+
+
+
+
+<div class="data-frame"><p>608,481 rows × 8 columns</p><table class="data-frame"><thead><tr><th></th><th>E1</th><th>minE</th><th>maxE</th><th>minG</th><th>maxG</th><th>a</th><th>b</th><th>cdf</th></tr><tr><th></th><th title="Float64">Float64</th><th title="Float64">Float64</th><th title="Float64">Float64</th><th title="Float64">Float64</th><th title="Float64">Float64</th><th title="Float64">Float64</th><th title="Float64">Float64</th><th title="Float64">Float64</th></tr></thead><tbody><tr><th>1</th><td>0.00093</td><td>0.00093</td><td>0.01493</td><td>1.34513e-47</td><td>1.37867e-47</td><td>2.39571e-47</td><td>1.3429e-47</td><td>1.90666e-52</td></tr><tr><th>2</th><td>0.00093</td><td>0.01493</td><td>0.02693</td><td>1.37867e-47</td><td>1.40984e-47</td><td>2.5975e-47</td><td>1.33989e-47</td><td>3.57977e-52</td></tr><tr><th>3</th><td>0.00093</td><td>0.02693</td><td>0.04093</td><td>1.40984e-47</td><td>1.45085e-47</td><td>2.92929e-47</td><td>1.33095e-47</td><td>5.58225e-52</td></tr><tr><th>4</th><td>0.00093</td><td>0.04093</td><td>0.05893</td><td>1.45085e-47</td><td>1.50717e-47</td><td>3.12889e-47</td><td>1.32278e-47</td><td>8.24447e-52</td></tr><tr><th>5</th><td>0.00093</td><td>0.05893</td><td>0.10993</td><td>1.50717e-47</td><td>1.66716e-47</td><td>3.13706e-47</td><td>1.3223e-47</td><td>1.6339e-51</td></tr><tr><th>&vellip;</th><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td><td>&vellip;</td></tr></tbody></table></div>
+
+
+
 ### Approximated spectrum shown as lines build out of linear segments. Each line represents one constant E1
 
 
@@ -122,14 +136,14 @@ df = normalize2D!(df)
 c = palette(:thermal)
 
 p = plot_lines(50, df, c)
-p
+p = plot!(ylims = (minimum(df.minG), 1.1*maximum(df.maxG)))
 ```
 
 
 
 
     
-![svg](output_12_0.svg)
+![svg](output_14_0.svg)
     
 
 
