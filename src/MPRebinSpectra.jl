@@ -23,6 +23,7 @@ export  rebin,
         rebin2D,
         normalize2D!,
         get_cdf,
-        get_cdf!,
+        get_cdf!
+
 
 end
