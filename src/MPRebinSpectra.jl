@@ -7,7 +7,7 @@ include("Line.jl")
 export  get_line_params, 
         get_line_point,
         get_integral_linear,
-        solvequadratic,
+        #solvequadratic,
         plot_lines
 
 include("Volume.jl")
@@ -21,14 +21,8 @@ export  get_area,
 include("Rebin2D.jl")
 export  rebin,
         rebin2D,
-        normalize2D!
-
-include("Sampling.jl")
-export  sample_rejection,
-        sample_discrete_CDF,
-        sample_energies_old,
+        normalize2D!,
         get_cdf,
         get_cdf!,
-        sample_energies
 
 end
