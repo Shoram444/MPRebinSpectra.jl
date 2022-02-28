@@ -1,11 +1,3 @@
-# MPRebinSpectra
-
-[![Build Status](https://travis-ci.com/Shoram444/MPRebinSpectra.jl.svg?branch=main)](https://travis-ci.com/Shoram444/MPRebinSpectra.jl)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/Shoram444/MPRebinSpectra.jl?svg=true)](https://ci.appveyor.com/project/Shoram444/MPRebinSpectra-jl)
-[![Coverage](https://codecov.io/gh/Shoram444/MPRebinSpectra.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/Shoram444/MPRebinSpectra.jl)
-[![Coverage](https://coveralls.io/repos/github/Shoram444/MPRebinSpectra.jl/badge.svg?branch=main)](https://coveralls.io/github/Shoram444/MPRebinSpectra.jl?branch=main)
-
-
 ## Example of how to use the MPRebinSpectra module. 
 ### A discrete 2D spectrum of electron energies (for $2\nu\beta\beta$ decay) is given as an ascii text file where:
     column1 = E1, column2 = E2, column3 = multiplicity(dGdE)
