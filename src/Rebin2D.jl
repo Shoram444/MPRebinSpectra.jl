@@ -1,5 +1,5 @@
 function rebin2D(df::DataFrame, _prec::Float64 = 0.001)
-    df_rebinned = DataFrame(E1 = Float64[],
+    df_rebinned = DataFrame(E1 = Float64[],   # !!!initialize with x0,y0 =0,0 and approx to first poont!!
                             minE = Float64[], maxE = Float64[],            
                             minG = Float64[], maxG = Float64[],
                             a = Float64[], b = Float64[])
@@ -65,6 +65,8 @@ function rebin(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::Fl
         Δy  = abs((get_line_point(_x[ef], a, b) - _y[ef])/_y[ef]) #find new Δy
 
     end
+
+# !!! Add last approximation as (xf, yf) and (xf+step, 0)
     
     return df_rebinned
 end
