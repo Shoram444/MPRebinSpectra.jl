@@ -23,7 +23,7 @@ function rebin1D(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::
                             a = a, b = b )
     
     if length(_x) == 1                                              # if there is only one point in the vector, first point is approximated from (0,0) to (x1,y1)
-        a,b = get_line_params(_x[e0], _y[e0], _x[e0] + _dx, 0.0)        # second line is approximated from (x1,y1) to (x1+dx, 0) creating a triangle with area equal to 
+        a,b = get_line_params(_x[e0], _y[e0], _x[e0] + _dx, 0.0)    # second line is approximated from (x1,y1) to (x1+dx, 0) creating a triangle with area equal to 
                                                                     # rectangle with sides dx and y1 (dx is the step in x-direction...we assume x-array is evenly spaced)
         push!(df_rebinned, [_E1,
                             _x[e0], _x[e0] + _dx,    
