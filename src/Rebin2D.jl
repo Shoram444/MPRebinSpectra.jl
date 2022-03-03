@@ -1,17 +1,17 @@
-function rebin2D(df::DataFrame, _prec::Float64 = 0.001)
+function rebin2D(df::DataFrame, _prec::Float64 = 0.001, _dx = 0.001)
     df_rebinned = DataFrame(E1 = Float64[],   
                             minE = Float64[], maxE = Float64[],            
                             minG = Float64[], maxG = Float64[],
                             a = Float64[], b = Float64[])
 
     for e in unique(df.E1)
-        df_rebinned = vcat(df_rebinned, rebin1D(df[df.E1 .== e, 2], df[df.E1 .== e, 3], e, _prec))
+        df_rebinned = vcat(df_rebinned, rebin1D(df[df.E1 .== e, 2], df[df.E1 .== e, 3], e, _prec, _dx))
     end
     
     return df_rebinned
 end
 
-function rebin1D(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::Float64 = 0.001)
+function rebin1D(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::Float64 = 0.001, _dx = 0.001)
     e0=1 #initialize index of the first point in fit 
     ef=2 #initialize index of the second point in fit
 
@@ -23,10 +23,10 @@ function rebin1D(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::
                             a = a, b = b )
     
     if length(_x) == 1                                              # if there is only one point in the vector, first point is approximated from (0,0) to (x1,y1)
-        a,b = get_line_params(_x[e0], _y[e0], 2*_x[e0], 0.0)        # second line is approximated from (x1,y1) to (x1+dx, 0) creating a triangle with area equal to 
+        a,b = get_line_params(_x[e0], _y[e0], _x[e0] + _dx, 0.0)        # second line is approximated from (x1,y1) to (x1+dx, 0) creating a triangle with area equal to 
                                                                     # rectangle with sides dx and y1 (dx is the step in x-direction...we assume x-array is evenly spaced)
         push!(df_rebinned, [_E1,
-                            _x[e0], 2*_x[e0],    
+                            _x[e0], _x[e0] + _dx,    
                             _y[e0], 0.0     ,     
                             a     , b       ] )
         return df_rebinned
@@ -69,9 +69,9 @@ function rebin1D(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::
 
     end
 
-    a, b = get_line_params(_x[ef], _y[ef], _x[ef]+_x[1], 0.0)       # finally to add very last approximation by going from (xf, yf) to (xf+dx, 0.0)
+    a, b = get_line_params(_x[ef], _y[ef], _x[ef]+_dx, 0.0)       # finally to add very last approximation by going from (xf, yf) to (xf+dx, 0.0)
     push!(df_rebinned, [_E1, 
-                        _x[ef], _x[ef]+_x[1], 
+                        _x[ef], _x[ef]+_dx, 
                         _y[ef], 0.0         ,                       # for last point line stops at the endpoint
                         a     , b           ] )       
     
