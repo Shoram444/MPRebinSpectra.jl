@@ -79,7 +79,7 @@ function rebin1D(_x::Vector{Float64}, _y::Vector{Float64}, _E1::Float64, _prec::
 end
 
 
-function normalize2D!(df_rebinned::DataFrame, thickness = 0.001)
+function normalize2D!(df_rebinned::DataFrame, thickness = 0.001) # CHANGE THIS, NO NEED TO PREALLOCATE df_normed. JUST CHANGE THE INPUT DF and RETURN IT!
     volume_rebinned = get_total_volume(df_rebinned, thickness)
     
     df_normed = select(df_rebinned,
@@ -92,7 +92,15 @@ function normalize2D!(df_rebinned::DataFrame, thickness = 0.001)
                     :b   => ByRow(b->b/volume_rebinned) => :b,
                     )
 
-    return df_normed
+    return df_normed  #return select(df_rebinned,
+                    #  :E1            => :E1,
+                    #  :minE          => :minE,
+                    #  :maxE          => :maxE,
+                    #  :minG=> ByRow(g->g/volume_rebinned) => :minG,
+                    #  :maxG=> ByRow(g->g/volume_rebinned) => :maxG,
+                    #  :a   => ByRow(a->a/volume_rebinned) => :a,
+                    #  :b   => ByRow(b->b/volume_rebinned) => :b,
+                    #  )
 end
 
 
