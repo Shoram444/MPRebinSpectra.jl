@@ -127,7 +127,7 @@ p_approx
 
 
     
-![svg](Example/output_10_0.svg)
+![png](Example/output_10_0.png)
     
 
 
