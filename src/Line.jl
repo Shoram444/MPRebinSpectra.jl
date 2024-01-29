@@ -23,7 +23,7 @@ Returns the parameters a,b of linear approximation y = ax +b.
 ``
 """
 function get_line_params(x1::Float64, y1::Float64, x2::Float64, y2::Float64) 
-    a = (y1 - y2) / (x1 - x2)
+    a = (x1-x2) == 0.0 ? (0.0) : (y1 - y2) / (x1 - x2)
     b = y1 - a*x1
     return a,b #returns the parameters of line given by y = b + ax
 end
@@ -46,6 +46,11 @@ end
 
 
 function solvequadratic(a, b, c)
+    if (a == 0) 
+        @warn "a = ($a); not a quadratic formula!"
+        return 0.0
+    end
+
     d  = sqrt(b^2 - 4*a*c)
     return (-b - d) / (2*a), (-b + d) / (2*a)
 end
